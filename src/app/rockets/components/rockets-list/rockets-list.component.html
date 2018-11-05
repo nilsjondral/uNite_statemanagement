@@ -1,2 +1,4 @@
-
-<app-rocket-item *ngFor="let rocket of rockets | async" [rocket]="rocket"></app-rocket-item>
+<ng-container *ngIf="rockets$ | async; let rockets; else loading">
+  <app-rocket-item *ngFor="let rocket of rockets" [rocket]="rocket"></app-rocket-item>
+</ng-container>
+<ng-template #loading>loading...</ng-template>

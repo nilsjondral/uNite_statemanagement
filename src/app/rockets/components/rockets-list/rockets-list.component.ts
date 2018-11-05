@@ -10,12 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RocketsListComponent implements OnInit {
 
-  public rockets: Observable<Rocket[]>;
+  public rockets$: Observable<Rocket[]>;
 
   constructor(private rocketsService: RocketsService) { }
 
   ngOnInit() {
-    this.rockets = this.rocketsService.getRockets();
+    this.rockets$ = this.rocketsService.getRockets();
   }
 
 }

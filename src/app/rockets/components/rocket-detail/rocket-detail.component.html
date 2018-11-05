@@ -1,4 +1,4 @@
-<div *ngIf="rocket$ | async; let rocket">
+<ng-container *ngIf="rocket$ | async; let rocket; else loading">
   <h2>{{rocket.name}}</h2>
   <p>built by {{rocket.origin}}</p>
   Capacities:
@@ -6,4 +6,5 @@
     <li>Low earth orbit: {{rocket.LEO}} kg</li>
     <li>geostationary transfer orbit: {{rocket.GTO}} kg</li>
   </ul>
-</div>
+</ng-container>
+<ng-template #loading>loading...</ng-template>
