@@ -1,0 +1,9 @@
+<div *ngIf="rocket$ | async; let rocket">
+  <h2>{{rocket.name}}</h2>
+  <p>built by {{rocket.origin}}</p>
+  Capacities:
+  <ul>
+    <li>Low earth orbit: {{rocket.LEO}} kg</li>
+    <li>geostationary transfer orbit: {{rocket.GTO}} kg</li>
+  </ul>
+</div>

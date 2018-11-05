@@ -1,0 +1,3 @@
+<h2>{{rocket.name}}</h2>
+<p>built by {{rocket.origin}}</p>
+<a [routerLink]="['/rockets', rocket.id]" [class.visited]="rocket.visited">Detail</a>
