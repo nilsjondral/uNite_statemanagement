@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 import { Rocket } from '../models/Rocket.model';
-import { delay } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +19,17 @@ export class RocketsService {
 
   constructor() { }
 
-  getRockets() {
-    return of(this.rockets).pipe(delay(this.delay));
+  getRockets(query = ''): Observable<Rocket[]> {
+    return of(this.rockets).pipe(
+      map(fetchedRockets =>
+        fetchedRockets.filter(
+          r => query === ''
+          || r.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
+          || r.origin.toLowerCase().indexOf(query.toLowerCase()) >= 0)),
+      delay(this.delay));
   }
 
-  getRocket(id: number) {
+  getRocket(id: number): Observable<Rocket> {
     const rocket = this.rockets.find(r => r.id === id);
     if (rocket) { rocket.visited = true; }
     return of(rocket).pipe(delay(this.delay));

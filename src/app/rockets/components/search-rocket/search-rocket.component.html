@@ -1,0 +1,2 @@
+<input placeholder="Search for a rocket" [value]="query" (keyup)="search.emit($event.target.value)">
+<span *ngIf="searching">searching...</span>

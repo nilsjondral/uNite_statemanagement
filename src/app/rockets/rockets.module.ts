@@ -6,12 +6,14 @@ import { RocketsListComponent } from './Components/rockets-list/rockets-list.com
 import { RocketItemComponent } from './components/rocket-item/rocket-item.component';
 import { RocketDetailComponent } from './components/rocket-detail/rocket-detail.component';
 import { RocketsService } from './services/rockets.service';
+import { SearchRocketComponent } from './components/search-rocket/search-rocket.component';
 
 @NgModule({
   declarations: [
     RocketsListComponent,
     RocketItemComponent,
-    RocketDetailComponent],
+    RocketDetailComponent,
+    SearchRocketComponent],
   imports: [
     CommonModule,
     RouterModule,

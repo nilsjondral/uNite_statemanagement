@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RocketDetailComponent implements OnInit {
 
-  public rocket$: Observable<Rocket>;
+  rocket$: Observable<Rocket>;
 
   constructor(private rocketService: RocketsService, private route: ActivatedRoute) { }
 

@@ -1,4 +1,7 @@
-<ng-container *ngIf="rockets$ | async; let rockets; else loading">
+<app-search-rocket
+  [query]="searchQuery$ | async"
+  [searching]="loading$ | async"
+  (search)="search($event)"></app-search-rocket>
+<ng-container *ngIf="rockets$ | async; let rockets">
   <app-rocket-item *ngFor="let rocket of rockets" [rocket]="rocket"></app-rocket-item>
 </ng-container>
-<ng-template #loading>loading...</ng-template>
