@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { switchMap, shareReplay, mapTo, take, debounceTime } from 'rxjs/operators';
+import { switchMap, shareReplay, mapTo, debounceTime, first, map, skip } from 'rxjs/operators';
 import { Rocket } from '../../models/rocket.model';
 import { Observable, BehaviorSubject, merge } from 'rxjs';
 import { RocketsService } from '../../services/rockets.service';

@@ -14,5 +14,4 @@ export class RocketItemComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

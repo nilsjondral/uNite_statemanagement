@@ -24,6 +24,7 @@ export class RocketsService {
       map(fetchedRockets =>
         fetchedRockets.filter(
           r => query === ''
+          || query === '*'
           || r.name.toLowerCase().indexOf(query.toLowerCase()) >= 0
           || r.origin.toLowerCase().indexOf(query.toLowerCase()) >= 0)),
       delay(this.delay));
