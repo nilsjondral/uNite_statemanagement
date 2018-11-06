@@ -2,7 +2,7 @@ mat-card-title,
 mat-card-content,
 mat-card-footer {
   display: flex;
-  justify-content: center;
+  justify-content: left;
 }
 
 mat-card-footer {
@@ -12,7 +12,7 @@ mat-card-footer {
 
 .mat-form-field {
   min-width: 300px;
-  margin-right: 10px; // Make room for the spinner
+  margin-right: 10px;
 }
 
 .mat-spinner {
