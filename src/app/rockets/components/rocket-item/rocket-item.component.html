@@ -1,3 +1,8 @@
-<h2>{{rocket.name}}</h2>
-<p>built by {{rocket.origin}}</p>
-<a [routerLink]="['/rockets', rocket.id]" [class.visited]="rocket.visited">Detail</a>
+<a [routerLink]="['/rockets', rocket.id]" [class.visited]="rocket.visited">
+  <mat-card>
+      <mat-card-title>{{rocket.name}}</mat-card-title>
+      <mat-card-content>
+          <p>built by {{rocket.origin}}</p>
+      </mat-card-content>
+  </mat-card>
+</a>

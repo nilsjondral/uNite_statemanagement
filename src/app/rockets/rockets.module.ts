@@ -1,3 +1,4 @@
+import { MaterialModule } from './../material/material.module';
 import { RocketsRoutingModule } from './rockets-routing.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -13,11 +14,13 @@ import { SearchRocketComponent } from './components/search-rocket/search-rocket.
     RocketsListComponent,
     RocketItemComponent,
     RocketDetailComponent,
-    SearchRocketComponent],
+    SearchRocketComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
-    RocketsRoutingModule
+    RocketsRoutingModule,
+    MaterialModule
   ],
   exports: [
     RocketsListComponent

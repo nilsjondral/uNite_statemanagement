@@ -1,10 +1,12 @@
-<ng-container *ngIf="rocket$ | async; let rocket; else loading">
-  <h2>{{rocket.name}}</h2>
-  <p>built by {{rocket.origin}}</p>
-  Capacities:
-  <ul>
-    <li>Low earth orbit: {{rocket.LEO}} kg</li>
-    <li>geostationary transfer orbit: {{rocket.GTO}} kg</li>
-  </ul>
-</ng-container>
-<ng-template #loading>loading...</ng-template>
+<mat-card  *ngIf="rocket$ | async; let rocket; else loading">
+  <mat-card-title>{{rocket.name}}</mat-card-title>
+  <mat-card-content>
+    <p>built by {{rocket.origin}}</p>
+    Capacities:
+    <ul>
+      <li>Low earth orbit: {{rocket.LEO}} kg</li>
+      <li>geostationary transfer orbit: {{rocket.GTO}} kg</li>
+    </ul>
+  </mat-card-content>
+</mat-card>
+<ng-template #loading><mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner></ng-template>
