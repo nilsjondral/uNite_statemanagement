@@ -32,18 +32,8 @@ export class RocketsListComponent implements OnInit {
     const currentQuerry = this.route.snapshot.queryParams['q'] || '';
     this.store.dispatch(new SearchQueryUpdated(currentQuerry));
 
-    // sync the searchquery with the url
     this.searchQuery$ = this.store.select(rocketsQuery.getQuery)
       .pipe(debounceTime(500));
-    this.searchQuery$.subscribe(q => {
-      this.router.navigate([], {
-        relativeTo: this.route,
-        queryParams: {
-          ...this.route.snapshot.queryParams,
-          q: q
-        }
-      });
-    });
 
     // do search & add Rockets to store
     this.searchQuery$.pipe(
