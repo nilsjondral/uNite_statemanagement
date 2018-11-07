@@ -22,10 +22,6 @@ import { RocketsEffects } from './state/rockets.effects';
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(
-      { Rockets: rocketsReducer },
-      { initialState: { Rockets: rocketsInitialState}}
-    ),
     RocketsModule,
     MaterialModule
   ],

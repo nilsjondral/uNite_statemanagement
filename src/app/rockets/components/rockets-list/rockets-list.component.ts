@@ -1,6 +1,6 @@
-import { debounceTime, switchMap, share } from 'rxjs/operators';
+import { debounceTime, switchMap, share, mapTo, shareReplay } from 'rxjs/operators';
 import { Rocket } from '../../models/rocket.model';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, merge } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { rocketsQuery } from 'src/app/state/rockets.selectors';
@@ -18,35 +18,24 @@ export class RocketsListComponent implements OnInit {
   loading$: Observable<boolean>;
   searchQuery$: Observable<string>;
 
+  private search$: BehaviorSubject<string> = new BehaviorSubject('');
+
   constructor(
-    private store: Store<any>,
     private rocketsService: RocketsService,
     private route: ActivatedRoute,
     private router: Router) { }
 
-  ngOnInit() {
-    // start with empty list
-    this.store.dispatch(new RocketsLoaded([]));
+    ngOnInit() {
+      const startSearch = this.search$.pipe(debounceTime(500));
+      this.rockets$ = startSearch.pipe(
+        switchMap(query => this.rocketsService.getRockets(query)),
+        shareReplay(1));
+      this.loading$ = merge(
+        startSearch.pipe(mapTo(true)),
+        this.rockets$.pipe(mapTo(false)));
+    }
 
-    // get the latest query & push to the store
-    const currentQuerry = this.route.snapshot.queryParams['q'] || '';
-    this.store.dispatch(new SearchQueryUpdated(currentQuerry));
-
-    this.searchQuery$ = this.store.select(rocketsQuery.getQuery)
-      .pipe(debounceTime(500));
-
-    // do search & add Rockets to store
-    this.searchQuery$.pipe(
-      switchMap(q => this.rocketsService.getRockets(q)))
-      .subscribe(rockets => this.store.dispatch(new RocketsLoaded(rockets)));
-
-    // get data from store
-    this.loading$ = this.store.select(rocketsQuery.getLoading);
-    this.rockets$ = this.store.select(rocketsQuery.getRockets);
-  }
-
-  search(query: string) {
-    // push the new searchvalue to the store
-    this.store.dispatch(new SearchQueryUpdated(query));
-  }
+    search(query: string) {
+      this.search$.next(query);
+    }
 }

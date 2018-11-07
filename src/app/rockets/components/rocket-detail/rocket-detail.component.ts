@@ -19,8 +19,7 @@ export class RocketDetailComponent implements OnInit {
 
   constructor (
     private rocketsService: RocketsService,
-    private route: ActivatedRoute,
-    private store: Store<any>) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
