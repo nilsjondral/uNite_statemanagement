@@ -6,6 +6,7 @@ export class Rocket {
     public name: string,
     public origin: string,
     public LEO: number,
-    public GTO: number) {
+    public GTO: number,
+    public image: string) {
   }
 }
