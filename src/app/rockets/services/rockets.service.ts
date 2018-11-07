@@ -35,8 +35,8 @@ export class RocketsService {
       delay(this.delay));
   }
 
-  getRocket(id: number): Observable<Rocket> {
-    const rocket = this.rockets.find(r => r.id === id);
+  getRocket(id: number | string): Observable<Rocket> {
+    const rocket = this.rockets.find(r => r.id === +id);
     return of(rocket).pipe(delay(this.delay));
   }
 }

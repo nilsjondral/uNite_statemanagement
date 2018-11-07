@@ -20,8 +20,11 @@ export class RocketDetailComponent implements OnInit {
     private store: Store<any>) { }
 
   ngOnInit() {
+    // get the rocket from the store, if available
     const id = this.route.snapshot.params['id'];
     this.rocket$ = this.store.select(rocketsQuery.getRocket(id * 1));
+
+    // get the rocket from the service if not available
     this.store.dispatch(new GetRocket(id));
   }
 }

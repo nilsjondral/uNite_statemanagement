@@ -25,9 +25,11 @@ export class RocketsListComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    // start with empty list
     this.store.dispatch(new RocketsLoaded([]));
 
-    const currentQuerry = this.route.snapshot.queryParams['q'];
+    // sync query with URL
+    const currentQuerry = this.route.snapshot.queryParams['q'] || '';
     this.store.dispatch(new SearchQueryUpdated(currentQuerry));
     this.searchQuery$ = this.store.select(rocketsQuery.getQuery);
     this.searchQuery$.subscribe(q => {
@@ -40,16 +42,19 @@ export class RocketsListComponent implements OnInit {
       });
     });
 
+    // do search & add Rockets to store
     this.searchQuery$.pipe(
       debounceTime(500),
       switchMap(q => this.rocketsService.getRockets(q)))
       .subscribe(rockets => this.store.dispatch(new RocketsLoaded(rockets)));
 
+    // get data from store
     this.loading$ = this.store.select(rocketsQuery.getLoading);
     this.rockets$ = this.store.select(rocketsQuery.getRockets);
   }
 
   search(query: string) {
+    // push the new searchvalue to the store
     this.store.dispatch(new SearchQueryUpdated(query));
   }
 }
