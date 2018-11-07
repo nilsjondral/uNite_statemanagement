@@ -12,7 +12,8 @@ export class RocketsService {
 
   private rockets = [
     new Rocket(1, 'Ariane 5', 'ESA', 21000, 10865, 'Ariane_5.jpg'),
-    new Rocket(2, 'Atlas 5', 'ULA', 18500, 8700, 'Atlas_V.jpg'),
+    new Rocket(2, 'Atlas V', 'ULA', 18500, 8700, 'Atlas_V.jpg'),
+    new Rocket(3, 'Delta IV', 'ULA', 13140, 6390, 'Delta_IV_single.jpg'),
     new Rocket(3, 'Delta IV Heavy', 'ULA', 28790, 14220, 'Delta_IV.jpg'),
     new Rocket(4, 'Electron', 'ROCKET LAB', 225, 0, 'Electron.png'),
     new Rocket(5, 'Falcon 9', 'SPACEX', 15960, 5500, 'Falcon9.jpg'),
@@ -36,7 +37,6 @@ export class RocketsService {
 
   getRocket(id: number): Observable<Rocket> {
     const rocket = this.rockets.find(r => r.id === id);
-    if (rocket) { rocket.visited = true; }
     return of(rocket).pipe(delay(this.delay));
   }
 }

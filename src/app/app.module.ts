@@ -5,9 +5,9 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { MaterialModule } from './material/material.module';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    NoopAnimationsModule,
+    BrowserAnimationsModule,
     RocketsModule,
     MaterialModule
   ],

@@ -2,7 +2,7 @@ import { Rocket } from '../../models/rocket.model';
 import { Component, OnInit } from '@angular/core';
 import { RocketsService } from '../../services/rockets.service';
 import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,7 +18,10 @@ export class RocketDetailComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.pipe(first()).subscribe(params => {
-      this.rocket$ = this.rocketService.getRocket(params['id'] * 1);
+      this.rocket$ = this.rocketService.getRocket(params['id'] * 1).pipe(map(r => {
+        r.visited = true;
+        return r;
+      }));
     });
   }
 
