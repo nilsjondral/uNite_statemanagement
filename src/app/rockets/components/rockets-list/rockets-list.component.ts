@@ -13,9 +13,6 @@ import { RocketsService } from '../../services/rockets.service';
   styleUrls: ['./rockets-list.component.scss']
 })
 export class RocketsListComponent implements OnInit {
-
-  private search$: BehaviorSubject<string> = new BehaviorSubject('');
-
   rockets$: Observable<Rocket[]>;
   searchQuery$: Observable<string>;
   loading$: Observable<boolean>;
@@ -26,8 +23,8 @@ export class RocketsListComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new RocketsLoaded([]));
-    this.search$.pipe(debounceTime(500)).pipe(
-      tap(q => this.store.dispatch(new SearchQueryUpdated(q))),
+    this.store.select(rocketsQuery.getQuery).pipe(
+      debounceTime(500),
       switchMap(q => this.rocketsService.getRockets(q)))
       .subscribe(rockets => this.store.dispatch(new RocketsLoaded(rockets)));
 
@@ -36,6 +33,6 @@ export class RocketsListComponent implements OnInit {
   }
 
   search(query: string) {
-    this.search$.next(query);
+    this.store.dispatch(new SearchQueryUpdated(query));
   }
 }
