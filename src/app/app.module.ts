@@ -10,6 +10,8 @@ import { MaterialModule } from './material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
 import { rocketsReducer, initialState as rocketsInitialState } from './state/rockets.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { RocketsEffects } from './state/rockets.effects';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { rocketsReducer, initialState as rocketsInitialState } from './state/roc
       { Rockets: rocketsReducer },
       { initialState: { Rockets: rocketsInitialState}}
     ),
+    EffectsModule.forRoot([RocketsEffects]),
     RocketsModule,
     MaterialModule
   ],

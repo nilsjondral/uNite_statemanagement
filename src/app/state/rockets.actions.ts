@@ -4,7 +4,8 @@ import { Rocket } from '../rockets/models/rocket.model';
 export enum RocketsActionTypes {
   RocketsLoaded = '[Rockets] rockets loaded',
   SearchQueryUpdated = '[Rockets] searchQuery',
-  SetRocketVisited = '[Rockets] set rocket visited'
+  SetRocketVisited = '[Rockets] set rocket visited',
+  GetRocket = '[Rockets] get rocket'
 }
 
 export class RocketsLoaded implements Action {
@@ -22,13 +23,20 @@ export class SetRocketVisited implements Action {
   constructor(public payload: number) {}
 }
 
+export class GetRocket implements Action {
+  readonly type = RocketsActionTypes.GetRocket;
+  constructor(public payload: number) {}
+}
+
 export type RocketsAction =
   | RocketsLoaded
   | SearchQueryUpdated
-  | SetRocketVisited;
+  | SetRocketVisited
+  | GetRocket;
 
 export const fromRocketsActions = {
   RocketsLoaded,
   SearchQueryUpdated,
-  SetRocketVisited
+  SetRocketVisited,
+  GetRocket
 };

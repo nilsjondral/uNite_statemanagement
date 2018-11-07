@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { rocketsQuery } from 'src/app/state/rockets.selectors';
+import { GetRocket } from 'src/app/state/rockets.actions';
 
 @Component({
   selector: 'app-rocket-detail',
@@ -21,5 +22,7 @@ export class RocketDetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
     this.rocket$ = this.store.select(rocketsQuery.getRocket(id * 1));
+
+    this.store.dispatch(new GetRocket(id));
   }
 }
