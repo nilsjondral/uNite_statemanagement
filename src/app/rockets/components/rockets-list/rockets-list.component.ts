@@ -1,6 +1,6 @@
 import { debounceTime, tap, switchMap } from 'rxjs/operators';
 import { Rocket } from '../../models/rocket.model';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { rocketsQuery } from 'src/app/state/rockets.selectors';
