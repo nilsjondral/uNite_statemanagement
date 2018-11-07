@@ -1,9 +1,9 @@
 import { Rocket } from '../../models/rocket.model';
 import { Component, OnInit } from '@angular/core';
-import { RocketsService } from '../../services/rockets.service';
 import { Observable } from 'rxjs';
-import { first, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { rocketsQuery } from 'src/app/state/rockets.selectors';
 
 @Component({
   selector: 'app-rocket-detail',
@@ -14,15 +14,12 @@ export class RocketDetailComponent implements OnInit {
 
   rocket$: Observable<Rocket>;
 
-  constructor(private rocketService: RocketsService, private route: ActivatedRoute) { }
+  constructor (
+    private route: ActivatedRoute,
+    private store: Store<any>) { }
 
   ngOnInit() {
-    this.route.params.pipe(first()).subscribe(params => {
-      this.rocket$ = this.rocketService.getRocket(params['id'] * 1).pipe(map(r => {
-        r.visited = true;
-        return r;
-      }));
-    });
+    const id = this.route.snapshot.params['id'];
+    this.rocket$ = this.store.select(rocketsQuery.getRocket(id * 1));
   }
-
 }

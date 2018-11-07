@@ -9,16 +9,17 @@ export const ROCKETS_FEATURE_KEY = 'Rockets';
 export interface RocketsState {
   list: Rocket[];
   searchQuery: string;
+  loading: boolean;
 }
 
-// needed for effects
-// export interface RocketsPartialState {
-//   readonly [ROCKETS_FEATURE_KEY]: RocketsState;
-// }
+export interface RocketsPartialState {
+  readonly [ROCKETS_FEATURE_KEY]: RocketsState;
+}
 
 export const initialState: RocketsState = {
   list: [],
-  searchQuery: ''
+  searchQuery: '',
+  loading: false
 };
 
 export function rocketsReducer(
@@ -29,15 +30,23 @@ export function rocketsReducer(
     case RocketsActionTypes.RocketsLoaded: {
       state = {
         ...state,
-        list: action.payload
+        list: action.payload,
+        loading: false
       };
       break;
     }
     case RocketsActionTypes.SearchQueryUpdated: {
       state = {
         ...state,
-        searchQuery: action.payload
+        searchQuery: action.payload,
+        loading: true
       };
+      break;
+    }
+    case RocketsActionTypes.SetRocketVisited: {
+      state = {...state };
+      const rocket = state.list.find(r => r.id === action.payload);
+      rocket.visited = true;
       break;
     }
   }

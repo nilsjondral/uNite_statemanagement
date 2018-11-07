@@ -1,9 +1,11 @@
-import { ActivatedRoute } from '@angular/router';
-import { switchMap, shareReplay, mapTo, debounceTime, first, map, skip } from 'rxjs/operators';
+import { debounceTime, tap, switchMap } from 'rxjs/operators';
 import { Rocket } from '../../models/rocket.model';
-import { Observable, BehaviorSubject, merge } from 'rxjs';
-import { RocketsService } from '../../services/rockets.service';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { rocketsQuery } from 'src/app/state/rockets.selectors';
+import { SearchQueryUpdated, RocketsLoaded } from 'src/app/state/rockets.actions';
+import { RocketsService } from '../../services/rockets.service';
 
 @Component({
   selector: 'app-rockets-list',
@@ -18,12 +20,18 @@ export class RocketsListComponent implements OnInit {
   searchQuery$: Observable<string>;
   loading$: Observable<boolean>;
 
-  constructor(private rocketsService: RocketsService, private route: ActivatedRoute) { }
+  constructor(
+    private store: Store<any>,
+    private rocketsService: RocketsService) { }
 
   ngOnInit() {
-    const startSearch = this.search$.pipe(debounceTime(500));
-    this.rockets$ = startSearch.pipe(switchMap(query => this.rocketsService.getRockets(query)), shareReplay(1));
-    this.loading$ = merge(startSearch.pipe(mapTo(true)), this.rockets$.pipe(mapTo(false)));
+    this.search$.pipe(debounceTime(500)).pipe(
+      tap(q => this.store.dispatch(new SearchQueryUpdated(q))),
+      switchMap(q => this.rocketsService.getRockets(q)))
+      .subscribe(rockets => this.store.dispatch(new RocketsLoaded(rockets)));
+
+    this.loading$ = this.store.select(rocketsQuery.getLoading);
+    this.rockets$ = this.store.select(rocketsQuery.getRockets);
   }
 
   search(query: string) {
