@@ -33,7 +33,8 @@ export class RocketsListComponent implements OnInit {
     this.store.dispatch(new SearchQueryUpdated(currentQuerry));
 
     // sync the searchquery with the url
-    this.searchQuery$ = this.store.select(rocketsQuery.getQuery);
+    this.searchQuery$ = this.store.select(rocketsQuery.getQuery)
+      .pipe(debounceTime(500));
     this.searchQuery$.subscribe(q => {
       this.router.navigate([], {
         relativeTo: this.route,
@@ -46,7 +47,6 @@ export class RocketsListComponent implements OnInit {
 
     // do search & add Rockets to store
     this.searchQuery$.pipe(
-      debounceTime(500),
       switchMap(q => this.rocketsService.getRockets(q)))
       .subscribe(rockets => this.store.dispatch(new RocketsLoaded(rockets)));
 
