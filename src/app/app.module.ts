@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from './material/material.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
+import { rocketsReducer, initialState as rocketsInitialState } from './state/rockets.reducer';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot(
+      { Rockets: rocketsReducer },
+      { initialState: { Rockets: rocketsInitialState}}
+    ),
     RocketsModule,
     MaterialModule
   ],
