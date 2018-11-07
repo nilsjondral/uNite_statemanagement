@@ -19,8 +19,3 @@ export class SearchQueryUpdated implements Action {
 export type RocketsAction =
   | RocketsLoaded
   | SearchQueryUpdated;
-
-export const fromRocketsActions = {
-  RocketsLoaded,
-  SearchQueryUpdated
-};
