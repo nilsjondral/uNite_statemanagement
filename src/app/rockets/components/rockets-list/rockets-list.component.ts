@@ -25,6 +25,7 @@ export class RocketsListComponent implements OnInit {
     private rocketsService: RocketsService) { }
 
   ngOnInit() {
+    this.store.dispatch(new RocketsLoaded([]));
     this.search$.pipe(debounceTime(500)).pipe(
       tap(q => this.store.dispatch(new SearchQueryUpdated(q))),
       switchMap(q => this.rocketsService.getRockets(q)))

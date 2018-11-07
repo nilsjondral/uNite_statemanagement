@@ -22,7 +22,6 @@ export class RocketDetailComponent implements OnInit {
   ngOnInit() {
     const id = this.route.snapshot.params['id'];
     this.rocket$ = this.store.select(rocketsQuery.getRocket(id * 1));
-
     this.store.dispatch(new GetRocket(id));
   }
 }
