@@ -26,7 +26,6 @@ import { RocketsEffects } from './state/rockets.effects';
       { Rockets: rocketsReducer },
       { initialState: { Rockets: rocketsInitialState}}
     ),
-    EffectsModule.forRoot([RocketsEffects]),
     RocketsModule,
     MaterialModule
   ],
